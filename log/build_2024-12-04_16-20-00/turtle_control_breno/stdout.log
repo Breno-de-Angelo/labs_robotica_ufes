@@ -1,0 +1,15 @@
+running develop
+running egg_info
+writing turtle_control_breno.egg-info/PKG-INFO
+writing dependency_links to turtle_control_breno.egg-info/dependency_links.txt
+writing entry points to turtle_control_breno.egg-info/entry_points.txt
+writing requirements to turtle_control_breno.egg-info/requires.txt
+writing top-level names to turtle_control_breno.egg-info/top_level.txt
+reading manifest file 'turtle_control_breno.egg-info/SOURCES.txt'
+writing manifest file 'turtle_control_breno.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/lcee/breno/ros2_ws/install/turtle_control_breno/lib/python3.10/site-packages/turtle-control-breno.egg-link (link to .)
+Installing turtle_control script to /home/lcee/breno/ros2_ws/install/turtle_control_breno/lib/turtle_control_breno
+
+Installed /home/lcee/breno/ros2_ws/build/turtle_control_breno
+running symlink_data
