@@ -5,14 +5,16 @@ from rclpy.node import Node
 from rclpy.publisher import Publisher
 from geometry_msgs.msg import Twist, Pose2D
 from turtlesim.msg import Pose
+from typing import Optional
 
 class TurtleController(Node):
     cmd_vel_pub: Publisher
     v_max: float
     k_omega: float
+    epsilon: float
 
-    turle_pose: Pose | None = None
-    goal_pose: Pose2D | None = None
+    turle_pose: Optional[Pose] = None
+    goal_pose: Optional[Pose2D] = None
 
     def __init__(self):
         super().__init__('turtle_controller')
@@ -29,8 +31,9 @@ class TurtleController(Node):
         self.goal_sub = self.create_subscription(Pose2D, "/goal", self.goal_callback, 10)
 
     def init_variables(self):
-        self.v_max = 1.0
+        self.v_max = 0.5
         self.k_omega = 1.0
+        self.epsilon = 0.01
 
     def pose_callback(self, msg: Pose):
         self.turle_pose = msg
@@ -41,13 +44,10 @@ class TurtleController(Node):
     def pub_callback(self):
         if self.goal_pose and self.turle_pose:
             rho = math.sqrt((self.goal_pose.x - self.turle_pose.x) ** 2 + (self.goal_pose.y - self.turle_pose.y) ** 2)
-            if rho < 0.1:
+            if rho < self.epsilon:
                 return
 
             alpha = math.atan2(self.goal_pose.y - self.turle_pose.y, self.goal_pose.x - self.turle_pose.x) - self.turle_pose.theta
-
-            self.get_logger().info(f"Rho: {rho}")
-            self.get_logger().info(f"Alpha: {alpha}")
 
             twist_msg = Twist()
             twist_msg.linear.x = self.v_max * math.tanh(rho)
