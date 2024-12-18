@@ -47,7 +47,17 @@ class TurtleController(Node):
             if rho < self.epsilon:
                 return
 
-            alpha = math.atan2(self.goal_pose.y - self.turle_pose.y, self.goal_pose.x - self.turle_pose.x) - self.turle_pose.theta
+            if goal_angle < 0:
+                normalized_goal_angle = 2 * math.pi + goal_angle
+            else:
+                normalized_goal_angle = goal_angle
+
+            if current_angle < 0:
+                normalized_current_angle = 2 * math.pi + current_angle
+            else:
+                normalized_current_angle = current_angle
+
+            alpha = normalized_goal_angle - normalized_current_angle
 
             twist_msg = Twist()
             twist_msg.linear.x = self.v_max * math.tanh(rho)
