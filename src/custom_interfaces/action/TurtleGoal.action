@@ -1,0 +1,5 @@
+geometry_msgs/Pose goal
+---
+bool success
+---
+geometry_msgs/Pose pose
