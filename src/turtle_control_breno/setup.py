@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             'turtle_control = turtle_control_breno.turtle_control:main',
             'turtle_client = turtle_control_breno.turtle_client:main',
+            'plot_path = turtle_control_breno.plot_path:main',
         ],
     },
 )

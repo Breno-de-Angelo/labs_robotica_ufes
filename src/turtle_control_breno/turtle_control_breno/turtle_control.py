@@ -27,7 +27,7 @@ class TurtleController(Node):
         self.get_logger().info("Initializing turtle controller.")
 
         self.declare_parameter('v_max', 0.2)
-        self.declare_parameter('k_omega', 0.2)
+        self.declare_parameter('k_omega', 0.5)
         self.declare_parameter('epsilon', 0.01)
         self.handler = ParameterEventHandler(self)
 
@@ -102,22 +102,16 @@ class TurtleController(Node):
             current_angle = math.atan2(2 * self.turtle_pose.orientation.z * self.turtle_pose.orientation.w,
                                        1 - 2 * self.turtle_pose.orientation.z ** 2)
             self.get_logger().info(f"Current angle: {current_angle}")
-            if current_angle < 0:
-                normalized_current_angle = 2 * math.pi + current_angle
-            else:
-                normalized_current_angle = current_angle
-            self.get_logger().info(f"Normalized current angle: {normalized_current_angle}")
 
             goal_angle = math.atan2(self.goal_pose.position.y - self.turtle_pose.position.y,
                                     self.goal_pose.position.x - self.turtle_pose.position.x)
             self.get_logger().info(f"Goal angle: {goal_angle}")
-            if goal_angle < 0:
-                normalized_goal_angle = 2 * math.pi + goal_angle
-            else:
-                normalized_goal_angle = goal_angle
-            self.get_logger().info(f"Normalized goal angle: {normalized_goal_angle}")
 
-            alpha = normalized_goal_angle - normalized_current_angle
+            alpha = goal_angle - current_angle
+            if alpha > math.pi:
+                alpha -= 2 * math.pi
+            elif alpha < -math.pi:
+                alpha += 2 * math.pi
 
             twist_msg = Twist()
             twist_msg.linear.x = self.v_max * math.tanh(math.sqrt(rho2))

@@ -6,14 +6,14 @@ from custom_interfaces.action import TurtleGoal
 from rclpy.action import ActionClient
 
 GOAL_POSES = [Pose() for _ in range(4)]
-GOAL_POSES[0].position.x = 0.5
-GOAL_POSES[0].position.y = 0.5
+GOAL_POSES[0].position.x = 0.3
+GOAL_POSES[0].position.y = 0.3
 GOAL_POSES[0].position.z = 0.0
-GOAL_POSES[1].position.x = 0.5
+GOAL_POSES[1].position.x = 0.3
 GOAL_POSES[1].position.y = 0.0
 GOAL_POSES[1].position.z = 0.0
 GOAL_POSES[2].position.x = 0.0
-GOAL_POSES[2].position.y = 0.5
+GOAL_POSES[2].position.y = 0.3
 GOAL_POSES[2].position.z = 0.0
 GOAL_POSES[3].position.x = 0.0
 GOAL_POSES[3].position.y = 0.0
